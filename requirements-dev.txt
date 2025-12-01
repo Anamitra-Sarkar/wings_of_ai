@@ -1,0 +1,6 @@
+# Minimal dependencies for running tests
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+loguru>=0.7.0
+pytest>=7.4.0
+pytest-cov>=4.1.0
