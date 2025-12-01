@@ -308,9 +308,9 @@ class GeoTools:
             ox.settings.cache_folder = str(self.cache_dir)
             
             if bbox:
-                # OSMnx expects (north, south, east, west) for some functions
-                # but features_from_bbox expects (north, south, east, west)
-                north, south, east, west = bbox[2], bbox[0], bbox[3], bbox[1]
+                # Input bbox format: (south, west, north, east) in WGS84
+                # OSMnx features_from_bbox expects: (north, south, east, west)
+                south, west, north, east = bbox
                 gdf = ox.features_from_bbox(
                     bbox=(north, south, east, west),
                     tags=tags

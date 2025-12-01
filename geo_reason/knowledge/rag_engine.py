@@ -301,7 +301,12 @@ class EmbeddingProvider:
         """
         Fallback embedding using simple hashing.
         
-        This is a basic fallback when sentence-transformers is not available.
+        This is a basic fallback for testing/development when sentence-transformers
+        is not available. It uses SHA-256 for non-cryptographic hashing purposes
+        to generate pseudo-random but deterministic embedding values.
+        
+        WARNING: This produces low-quality embeddings suitable only for
+        basic functionality testing. Production use requires sentence-transformers.
         """
         import hashlib
         
@@ -312,7 +317,9 @@ class EmbeddingProvider:
             embedding = [0.0] * 384
             
             for i, word in enumerate(words[:384]):
-                hash_val = int(hashlib.md5(word.encode()).hexdigest()[:8], 16)
+                # Use SHA-256 for better distribution than MD5
+                # This is non-cryptographic use - just for deterministic pseudo-random values
+                hash_val = int(hashlib.sha256(word.encode()).hexdigest()[:8], 16)
                 embedding[i % 384] += (hash_val / 2**32) - 0.5
             
             # Normalize

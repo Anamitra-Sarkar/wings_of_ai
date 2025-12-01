@@ -117,6 +117,11 @@ class CodeAnalyzer(ast.NodeVisitor):
         self.generic_visit(node)
 
 
+# Store reference to the built-in import function at module load time
+# This prevents potential bypassing through __builtins__ manipulation
+_original_import = builtins.__import__
+
+
 def _execute_in_process(
     code: str,
     allowed_imports: Set[str],
@@ -152,14 +157,14 @@ def _execute_in_process(
         }
         
         # Custom __import__ that only allows whitelisted modules
+        # Uses the original import function stored at module load time for security
         def safe_import(name, globals=None, locals=None, fromlist=(), level=0):
             """Safe import that only allows whitelisted modules."""
             root_module = name.split('.')[0]
             if root_module not in allowed_imports:
                 raise ImportError(f"Import of '{name}' is not allowed")
-            return __builtins__['__import__'](name, globals, locals, fromlist, level)
+            return _original_import(name, globals, locals, fromlist, level)
         
-        # We use the real __import__ but validate first
         safe_builtins['__import__'] = safe_import
         
         # Prepare execution namespace

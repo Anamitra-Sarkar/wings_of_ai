@@ -1,5 +1,7 @@
 """Tests for the sandbox module."""
 
+import ast
+
 import pytest
 
 from geo_reason.core.sandbox import (
@@ -16,8 +18,6 @@ class TestImportValidator:
     
     def test_allowed_import(self):
         """Test that allowed imports pass validation."""
-        import ast
-        
         code = "import geopandas as gpd"
         tree = ast.parse(code)
         
@@ -28,8 +28,6 @@ class TestImportValidator:
     
     def test_disallowed_import(self):
         """Test that disallowed imports are caught."""
-        import ast
-        
         code = "import subprocess"
         tree = ast.parse(code)
         
@@ -41,8 +39,6 @@ class TestImportValidator:
     
     def test_from_import_validation(self):
         """Test from...import statement validation."""
-        import ast
-        
         code = "from os import system"
         tree = ast.parse(code)
         
@@ -57,8 +53,6 @@ class TestCodeAnalyzer:
     
     def test_dangerous_attribute_access(self):
         """Test that dangerous attribute access is blocked."""
-        import ast
-        
         code = "obj.__globals__"
         tree = ast.parse(code)
         
@@ -70,8 +64,6 @@ class TestCodeAnalyzer:
     
     def test_dangerous_function_call(self):
         """Test that dangerous function calls are blocked."""
-        import ast
-        
         code = "eval('print(1)')"
         tree = ast.parse(code)
         
@@ -83,8 +75,6 @@ class TestCodeAnalyzer:
     
     def test_safe_code(self):
         """Test that safe code passes analysis."""
-        import ast
-        
         code = """
 x = 1 + 2
 y = x * 3

@@ -182,17 +182,19 @@ def create_map(
     # Add GeoJSON if provided
     if geojson_data:
         try:
-            style_function = lambda x: {
-                'fillColor': '#3388ff',
-                'color': '#0000ff',
-                'weight': 2,
-                'fillOpacity': 0.3
-            }
+            def geojson_style(feature):
+                """Style function for GeoJSON features."""
+                return {
+                    'fillColor': '#3388ff',
+                    'color': '#0000ff',
+                    'weight': 2,
+                    'fillOpacity': 0.3
+                }
             
             geojson_layer = folium.GeoJson(
                 geojson_data,
                 name="Analysis Result",
-                style_function=style_function,
+                style_function=geojson_style,
                 tooltip=folium.GeoJsonTooltip(
                     fields=list(geojson_data.get('features', [{}])[0].get('properties', {}).keys())[:5] if geojson_data.get('features') else [],
                     aliases=[f.replace('_', ' ').title() for f in list(geojson_data.get('features', [{}])[0].get('properties', {}).keys())[:5]] if geojson_data.get('features') else []
