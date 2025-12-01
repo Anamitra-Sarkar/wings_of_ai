@@ -1,61 +1,78 @@
 # Geo-Reason Dependencies
 # Compatible with mid-tier GPUs (8GB+ VRAM)
 
-# Core ML/LLM Dependencies
+# ====================
+# Core Dependencies
+# ====================
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+loguru>=0.7.0
+
+# ====================
+# ML/LLM Dependencies (optional)
+# ====================
 torch>=2.1.0
 transformers>=4.36.0
 accelerate>=0.25.0
 bitsandbytes>=0.41.0
 
+# ====================
 # LangChain & Agents
+# ====================
 langchain>=0.1.0
 langchain-community>=0.0.10
 langchain-core>=0.1.0
-langgraph>=0.0.20
 
+# ====================
 # Vector Store & RAG
+# ====================
 chromadb>=0.4.20
 sentence-transformers>=2.2.0
-faiss-cpu>=1.7.4
 
+# ====================
 # Geospatial Libraries
+# ====================
 geopandas>=0.14.0
-rasterio>=1.3.0
 shapely>=2.0.0
 pyproj>=3.6.0
 fiona>=1.9.0
 osmnx>=1.6.0
 folium>=0.15.0
-rasterstats>=0.19.0
 
-# WhiteboxTools Python Interface
-whitebox>=2.3.0
+# Raster processing (optional - requires GDAL)
+# rasterio>=1.3.0
+# rasterstats>=0.19.0
 
-# GDAL bindings
-GDAL>=3.6.0
-
+# ====================
 # Web Interface
+# ====================
 streamlit>=1.29.0
 streamlit-folium>=0.15.0
 
+# ====================
 # Document Processing
+# ====================
 pypdf>=3.17.0
 markdown>=3.5.0
 python-docx>=1.1.0
 
+# ====================
 # Utilities
-pydantic>=2.5.0
+# ====================
 python-dotenv>=1.0.0
-loguru>=0.7.0
 tenacity>=8.2.0
 httpx>=0.25.0
 
+# ====================
 # Testing
+# ====================
 pytest>=7.4.0
 pytest-asyncio>=0.23.0
 pytest-cov>=4.1.0
 
+# ====================
 # Development
+# ====================
 black>=23.12.0
 isort>=5.13.0
 flake8>=6.1.0
